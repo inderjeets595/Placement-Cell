@@ -36,6 +36,25 @@ To run this application locally, follow these steps:
 - Employee can manage Students,Company,Interviews  through the "Employee Dashboard".
 - Employee can export the Student's interview details as CSV files through the "Download CSV" page.
 
+## Tools Used
+- NodeJS
+- MongoDB
+- ExpressJS
+- EJS
+- Bootstrap
+
+## Libraries Used:
+- connect-mongo
+- cookie-parser
+- ejs
+- express
+- express-ejs-layout
+- express-session
+- mongoose
+- passport
+- passport-jwt
+- passport-local
+
 ## Contact🤝
 
 For any inquiries or feedback, please contact Inderjeet Singh (mailto:inderjeets595@gmail.com).
