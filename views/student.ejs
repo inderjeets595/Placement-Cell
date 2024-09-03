@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+  <!-- Custom CSS for navbar, sidebar, and dashboard -->
+  <link rel="stylesheet" href="../assets/css/_navbar.css" />
+  <link rel="stylesheet" href="../assets/css/_sidebar.css" />
+  <link rel="stylesheet" href="../assets/css/dashboard.css" />
+  <!-- Bootstrap CSS for styling components -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom CSS for iziToast notifications -->
+  <link rel="stylesheet" href="../assets/css/izitoast.css" />
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <!-- Dashboard Container -->
+
+    <!-- Include navigation bar -->
+    <%- include('navigation') %>
+
+    <div class="m-container">
+      <!-- Main container -->
+
+      <!-- Include sidebar -->
+      <%- include('sidebar') %>
+
+      <div class="container-section">
+        <!-- Section for content -->
+
+        <div class="heading-section">
+          <!-- Section heading -->
+          <div class="title">
+            Student
+          </div>
+          <div class="add" data-toggle="modal" data-target="#studentModal">
+            Add Student
+          </div>
+        </div>
+
+        <div class="list-container">
+          <!-- Container for student list -->
+          <div class="list-section">
+            <table class="table-container">
+              <thead class="thead">
+                <tr>
+                  <!-- Table headers -->
+                  <th>Sl.No</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>College</th>
+                  <th>Batch</th>
+                  <th>Created At</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody class="tbody">
+                <!-- Table body with student data -->
+                <% if(students.length > 0) { %>
+                  <% students.forEach((student, index) => { %>
+                    <tr>
+                      <td><%= index + 1 %></td>
+                      <td class="name"><%= student.name %></td>
+                      <td><%= student.email %></td>
+                      <td><%= student.college %></td>
+                      <td><span class="pending"><%= student.batch %></span></td>
+                      <td><%= new Date(student.created_at).toDateString().slice(4) %></td>
+                      <td>
+                        <!-- Action icons for viewing and deleting student -->
+                        <i class="far fa-eye view-student" id="view-student" data-toggle="modal" data-target="#viewStudentModal" data-studentid='<%= JSON.stringify(student._id) %>'></i>
+                        <i class="fas fa-times delete-student" data-studentid='<%= JSON.stringify(student._id) %>'></i>
+                      </td>
+                    </tr>
+                  <% }); %>
+                <% } else { %>
+                  <tr>
+                    <td colspan="7">No Record Found</td>
+                  </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Adding Student -->
+  <div class="modal fade" id="studentModal" tabindex="-1" role="dialog" aria-labelledby="studentModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-primary-color">
+          <h5 class="modal-title" id="studentModalLabel">Create Student Form</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="studentForm" action="/employee/student/add" method="POST" class="student-form">
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row">
+                <!-- Personal Details -->
+                <div class="col-md-6">
+                  <h5>Personal Details</h5>
+                  <div class="form-group">
+                    <label for="studentName">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="studentName">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" required >
+                  </div>
+                  <div class="form-group">
+                    <label for="studentGender">Gender:</label>
+                    <select class="form-control" id="gender" name="gender" required>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="studentDob">Date of Birth:</label>
+                    <input type="date" class="form-control" id="dob" name="dob" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="studentAge">Age:</label>
+                    <input type="number" class="form-control" id="age" name="age" max="50" min="15" required>
+                  </div>
+                  <!-- <div class="form-group">
+                    <label for="studentGender">Status:</label>
+                    <select class="form-control" id="status" name="status" required>
+                      <option value="">Status</option>
+                      <option value="placed">Placed</option>
+                      <option value="not_placed">Not Placed</option>
+                    </select>
+                  </div> -->
+                </div>
+
+                <!-- Academic Details -->
+                <div class="col-md-6">
+                  <h5>Academic Details</h5>
+                  <div class="form-group">
+                    <label for="studentCollege">College:</label>
+                    <input type="text" class="form-control" id="college" name="college"  required>
+                  </div>
+                  <div class="form-group">
+                    <label for="studentBatch">Batch:</label>
+                    <input type="number" class="form-control" id="batch" name="batch" placeholder="2024" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="studentDSA">DSA-Score:</label>
+                    <input type="number" class="form-control" id="dsa_score" name="dsa_score" placeholder="Score out of 100" min="1" max="100" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="studentWebD">WebD-Score:</label>
+                    <input type="number" class="form-control" id="webd_score" name="webd_score" placeholder="Score out of 100" min="1" max="100" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="studentReact">React-Score:</label>
+                    <input type="number" class="form-control" id="webd_score" name="react_score" placeholder="Score out of 100"  min="1" max="100" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save Student</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<!-- Modal for Viewing Student Details -->
+<div class="modal fade" id="viewStudentModal" tabindex="-1" role="dialog" aria-labelledby="viewStudentModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content bg-light border-primary">
+      <div class="modal-header bg-primary-color">
+        <h5 class="modal-title" id="viewStudentModal">Student Details</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Display Student Details in Sections -->
+
+        <!-- Row for Personal and Academic Details -->
+        <div class="row">
+          <!-- Personal Details Section -->
+          <div class="col-md-6">
+            <h5 class="bg-info-c  p-2 rounded">Personal Details</h5>
+            <ul class="list-group mb-4">
+              <li class="list-group-item "><strong>Name:</strong> <span id="student-name"></span></li>
+              <li class="list-group-item "><strong>Email:</strong> <span id="student-email"></span></li>
+              <li class="list-group-item "><strong>Gender:</strong> <span id="student-gender"></span></li>
+              <li class="list-group-item "><strong>Date of Birth:</strong> <span id="student-dob"></span></li>
+              <li class="list-group-item "><strong>Age:</strong> <span id="student-age"></span></li>
+            </ul>
+          </div>
+
+          <!-- Academic Details Section -->
+          <div class="col-md-6">
+            <h5 class="bg-info-c p-2 rounded">Academic Details</h5>
+            <ul class="list-group mb-4">
+              <li class="list-group-item "><strong>College:</strong> <span id="student-college"></span></li>
+              <li class="list-group-item "><strong>Batch:</strong> <span id="student-batch"></span></li>
+              <li class="list-group-item "><strong>DSA Score:</strong> <span id="student-dsa-score"></span></li>
+              <li class="list-group-item "><strong>WebD Score:</strong> <span id="student-web-score"></span></li>
+              <li class="list-group-item "><strong>React Score:</strong> <span id="student-react-score"></span></li>
+            </ul>
+          </div>
+        </div>
+  
+        <!-- Company Details Section -->
+        <h5 class="bg-info-c p-2 rounded">Interview Details</h5>
+        <table class="table table-bordered table-striped">
+          <thead class="bg-info-c">
+            <tr>
+              <th>Company Name</th>
+              <th>Interview Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="companyDetails">
+            <!-- Company details will be populated dynamically -->
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <!-- Delete Student Button -->
+        <button type="button" class="btn btn-danger delete-student" id="deleteStudentBtn">Delete Student</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="../assets/js/student.js"></script> 
+  <script src="../assets/js/izitoast.js"></script>
+  <script>
+    // Use EJS variable to set the initial state
+    const success_flash = "<%= typeof flash.success !== 'undefined' ? flash.success : '' %>";
+    const error_flash = "<%= typeof flash.error !== 'undefined' ? flash.error : '' %>";
+    const info_flash = "<%= typeof flash.info !== 'undefined' ? flash.info : '' %>";
+    const warning_flash = "<%= typeof flash.warning !== 'undefined' ? flash.warning : '' %>";
+  </script>
+  <script src="../assets/js/fm.js"></script> 
+</body>
+
+</html>

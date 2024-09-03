@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Character encoding for the document -->
+  <meta charset="UTF-8">
+  
+  <!-- Viewport settings for responsive design -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Page title displayed in the browser tab -->
+  <title><%= title %></title>
+  
+  <!-- Font Awesome for using icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+  
+  <!-- Custom stylesheets for navigation, sidebar, dashboard layout, and notifications -->
+  <link rel="stylesheet" href="../assets/css/_navbar.css" />
+  <link rel="stylesheet" href="../assets/css/_sidebar.css" />
+  <link rel="stylesheet" href="../assets/css/dashboard.css" />
+  <link rel="stylesheet" href="../assets/css/izitoast.css" />
+</head>
+
+<body>
+  <!-- Main container for the dashboard layout -->
+  <div class="dashboard-container">
+
+    <!-- Include navigation bar from external EJS template -->
+    <%- include('navigation') %>
+
+    <div class="m-container">
+
+      <!-- Include sidebar from external EJS template -->
+      <%- include('sidebar') %>
+
+      <!-- Main content section -->
+      <div class="container-section">
+
+        <!-- Page title for the dashboard -->
+        <div class="title">
+          Dashboard
+        </div>
+
+        <!-- Section containing cards for displaying key metrics -->
+        <div class="card-section">
+          <!-- Card for total students -->
+          <div class="card" onclick="window.location.href = '/employee/student'">
+            <div class="inner-text">
+              <span class="heading">Total Student</span>
+              <span class="count">
+               <%= totalStudent %></span>
+            </div>
+          </div>
+
+          <!-- Card for total companies -->
+          <div class="card" onclick="window.location.href = '/employee/company'">
+            <div class="inner-text">
+              <span class="heading">Total Company</span>
+              <span class="count"><%= totalCompany %></span>
+            </div>
+          </div>
+
+          <!-- Card for total interviews scheduled -->
+          <div class="card" onclick="window.location.href = '/employee/interview'">
+            <div class="inner-text">
+              <span class="heading">Interview Schedule</span>
+              <span class="count"><%= totalInterview %></span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- iziToast library for showing notifications -->
+  <script src="../assets/js/izitoast.js"></script>
+  
+  <!-- JavaScript for handling flash messages with EJS variables -->
+  <script>
+    // Extract flash messages from EJS variables to be used in JavaScript
+    const success_flash = "<%= typeof flash.success !== 'undefined' ? flash.success : '' %>";
+    const error_flash = "<%= typeof flash.error !== 'undefined' ? flash.error : '' %>";
+    const info_flash = "<%= typeof flash.info !== 'undefined' ? flash.info : '' %>";
+    const warning_flash = "<%= typeof flash.warning !== 'undefined' ? flash.warning : '' %>";
+  </script>
+  
+  <!-- Custom JavaScript file for additional functionality -->
+  <script src="../assets/js/fm.js"></script>
+</body>
+
+</html>

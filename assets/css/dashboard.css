@@ -1,0 +1,315 @@
+/* Reset default margin, padding, and box-sizing for all elements */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Basic styling for the body element */
+body {
+  background-color: #EAF1FC !important; /* Light blue background */
+  font-family: 'Segoe UI Regular' !important; /* Set font */
+}
+
+/* Container for the entire dashboard layout */
+.dashboard-container {
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Container for the main content area */
+.m-container {
+  display: flex;
+  justify-content: space-between; /* Space items evenly */
+  height: 100% !important;
+}
+
+/* Styling for sections within the container */
+.container-section {
+  border-radius: 10px; /* Rounded corners */
+  width: 65%; /* Width of the section */
+  flex: 1;
+  padding: 2rem; /* Padding inside the section */
+  overflow-y: scroll; /* Vertical scrolling if needed */
+  backdrop-filter: blur(5px); /* Blur effect for the background */
+  color: #131523; /* Text color */
+}
+
+/* Hide the scrollbar for the container-section */
+.container-section::-webkit-scrollbar {
+  display: none;
+}
+
+/* Styling for the heading section */
+.heading-section {
+  display: flex;
+  justify-content: space-between; /* Space items evenly */
+}
+
+/* Styling for the title text */
+.title {
+  font-size: 2.2rem; /* Large font size */
+  font-weight: 600; /* Bold text */
+  padding-bottom: 2rem; /* Space below the title */
+}
+
+/* Styling for the add button */
+.add {
+  margin: 0.5rem 4rem 0 0; /* Margin around the button */
+  padding: 0.6rem; /* Padding inside the button */
+  height: 2.8rem; /* Height of the button */
+  border: 2px solid rgb(184, 182, 182); /* Border color */
+  color: #635EFF; /* Text color */
+  border-radius: 4px; /* Rounded corners */
+  background-color: #e8ecf7; /* Background color */
+}
+
+/* Styling for the add button on hover */
+.add:hover {
+  border: 2px solid #635EFF; /* Change border color */
+  cursor: pointer; /* Pointer cursor on hover */
+  background-color: #F6F9FF; /* Change background color */
+}
+
+/* Styling for the card section */
+.card-section {
+  display: flex;
+  flex-wrap: wrap; /* Wrap cards to next line if needed */
+}
+
+/* Styling for individual cards */
+.card {
+  height: 12rem; /* Height of the card */
+  width: 24rem; /* Width of the card */
+  transition: 0.2s; /* Smooth transition for hover effect */
+  display: flex;
+  font-size: 20px; /* Font size */
+  padding: 10px; /* Padding inside the card */
+  position: relative; /* Position relative for absolute children */
+  cursor: pointer; /* Pointer cursor on hover */
+  text-decoration: none; /* Remove underline from text */
+  background-color: rgb(255, 255, 255); /* White background */
+  background-clip: border-box; /* Background clipping */
+  box-shadow: rgba(103, 116, 142, 0.075) 0rem 0rem 1rem 0rem; /* Box shadow */
+  border-right: 2px solid #D9E1EC; /* Border on the right side */
+  margin-right: 4px; /* Margin on the right side */
+}
+
+/* Styling for card on hover */
+.card:hover {
+  transform: scale(1); /* Scale effect */
+  color: #9F9AAC; /* Text color on hover */
+  border-right: 3.5px solid #bfcbeb; /* Change border color */
+  border-bottom: 2px solid #bfcbeb; /* Change border color */
+}
+
+/* Inner text styling within the card */
+.card .inner-text {
+  width: 100%; /* Full width */
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center align items */
+  justify-content: space-evenly; /* Space items evenly */
+  position: relative; /* Position relative for absolute children */
+}
+
+/* Styling for the count in the card */
+.inner-text .heading .count {
+  font-weight: 600; /* Bold text */
+  font-size: 1.5rem; /* Font size */
+  letter-spacing: 0.6px; /* Letter spacing */
+}
+
+/* Margin for the count */
+.count {
+  margin-bottom: 2rem; /* Space below the count */
+}
+
+/************Student*************/
+
+/* Container for the student list */
+.list-container {
+  width: 95%; /* Width of the container */
+  height: 95%; /* Height of the container */
+  background-color: #FFFFFF; /* White background */
+  padding: 2.5rem; /* Padding inside the container */
+}
+
+/* Section within the student list container */
+.list-section {
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+}
+
+/* Styling for the table */
+table {
+  width: 100%; /* Full width */
+  overflow: hidden; /* Hide overflow */
+}
+
+/* Styling for table header */
+thead {
+  width: 100%; /* Full width */
+  overflow: hidden; /* Hide overflow */
+  height: 45px; /* Height of the header */
+}
+
+/* Styling for table header cells */
+thead th {
+  border-bottom: 2.5px solid #E6E9F4; /* Bottom border color */
+  font-size: 18px; /* Font size */
+  font-weight: 400; /* Font weight */
+  text-align: center; /* Center text alignment */
+}
+
+/* Styling for table rows */
+tbody tr {
+  height: 40px; /* Height of the row */
+}
+
+/* Styling for table data cells */
+tbody tr td {
+  text-align: center; /* Center text alignment */
+  border-bottom: 2px solid #E6E9F4; /* Bottom border color */
+  height: 50px; /* Height of the cell */
+  font-size: 16px; /* Font size */
+}
+
+/* Styling for table data cells with name */
+tbody tr td.name {
+  font-weight: 600 !important; /* Bold text */
+}
+
+/* Styling for table data cells with description */
+tbody tr td.description {
+  width: 50%; /* Fixed width for description column */
+  max-width: 450px; /* Maximum width */
+  text-align: justify; /* Justify text alignment */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Ellipsis for overflowed text */
+}
+
+/* Styling for table rows on hover */
+tbody tr:hover {
+  background-color: #DCE3F7; /* Background color on hover */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Styling for icons within table data cells */
+td > i {
+  padding-right: 6px; /* Padding on the right */
+}
+
+/* Styling for pencil icon */
+.fa-pencil-al {
+  color: blue; /* Blue color */
+}
+
+/* Styling for times icon */
+.fa-times {
+  color: red; /* Red color */
+}
+
+/* Styling for pending status */
+.pending {
+  background-color: #E6E9F4; /* Background color */
+  padding: 6px; /* Padding */
+  border-radius: 6px; /* Rounded corners */
+}
+
+/* Custom styling for form controls in the modal */
+.modal-body .form-control {
+  border: none; /* Remove all borders */
+  border-bottom: 2px solid #007bff; /* Add a bottom border */
+  border-radius: 0; /* Remove any border radius */
+  padding-left: 0; /* Optional: Remove left padding if desired */
+}
+
+/* Focus styling for form controls in the modal */
+.modal-body .form-control:focus {
+  box-shadow: none; /* Remove the default focus shadow */
+  border-bottom-color: #0056b3; /* Darker color on focus */
+}
+
+/* Custom styles for the modal */
+.modal-content {
+  border-radius: 0.5rem; /* Rounded corners */
+}
+
+.modal-header {
+  border-bottom: 1px solid #dee2e6; /* Bottom border */
+}
+
+.modal-body {
+  padding: 2rem; /* Padding inside the modal body */
+}
+
+/* Background color classes */
+.bg-primary-color {
+  background-color: #DCE3F7 !important; /* Primary background color */
+}
+
+.bg-info-c {
+  background-color: #DCE3F7 !important; /* Info color background */
+}
+
+.bg-success {
+  background-color: #28a745 !important; /* Success color background */
+}
+
+.bg-warning {
+  background-color: #ffc107 !important; /* Warning color background */
+}
+
+.bg-danger {
+  background-color: #dc3545 !important; /* Danger color background */
+}
+
+/* Text color classes */
+.text-white {
+  color: #fff !important; /* White text color */
+}
+
+.text-dark {
+  color: #343a40 !important; /* Dark text color */
+}
+
+/* Styling for striped table rows */
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #fff !important; /* White background for odd rows */
+}
+
+/* Styling for bordered table cells */
+.table-bordered th, .table-bordered td {
+  border: 1px solid #dee2e6; /* Border color */
+}
+.csv-section{
+  width: 100%;
+  height: 100%;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.inner{
+  position: relative;
+}
+
+
+.download-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  font-size: 2rem;
+  color:black;
+}
+
+.inner:hover .download-icon {
+  opacity: 1;
+}

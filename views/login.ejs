@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <%= title %>
+  </title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+  <!-- Google Font Cherry Bomb One -->
+  <link href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap" rel="stylesheet">
+  <!-- Custom CSS for login page -->
+  <link rel="stylesheet" href="../assets/css/login.css" />
+  <!-- Custom CSS for iziToast notifications -->
+  <link rel="stylesheet" href="../assets/css/izitoast.css" />
+</head>
+
+<body>
+
+  <div class="form-container">
+    <!-- Main container for form sections -->
+
+    <div class="form-section">
+      <!-- Login Form Section -->
+      <div class="login-form-section" id="loginFormSection"
+        <% if (showRegister) { %> style="display: none;" <% } %>>
+        <!-- Display only if not showing registration form -->
+        <div class="login-text">
+          Sign In
+          <div class="login-quote">
+            Welcome to CareerPool, explore the best careers!
+          </div>
+        </div>
+
+        <form class="login-form" action="/employee/create-session" method="post">
+          <!-- Login form -->
+          <div class="input-box">
+            <input type="email" name="email" placeholder="Enter Your Email" required autocomplete="section-blue email-address">
+            <div class="underline"></div>
+          </div>
+          <div class="input-box">
+            <input type="password" name="password" placeholder="Enter Your Password" required autocomplete="section-blue password">
+            <div class="underline"></div>
+          </div>
+
+          <div class="forgot-password">
+            <a href="#" class="forgot-password">Forgot password?</a>
+          </div>
+          <div class="input-box button">
+            <input type="submit" name="submit" value="Continue">
+          </div>
+        </form>
+
+        <span class="partition">
+          Or
+        </span>
+        <div class="sign-in-google">
+          <!-- Google Sign-In option -->
+          <a href="/new/auth/google">
+            <i class='fab fa-google-plus-g'></i>
+            Continue with Google
+          </a>
+        </div>
+        <div class="sign-up-text">
+          Don't have an account? <span class="signup-btn">Sign up</span>
+        </div>
+        <a href="/" class="back-page">
+          <i class="fas fa-long-arrow-alt-left"></i>
+        </a>
+      </div>
+
+      <!-- Animation Section -->
+      <div class="animation-section">
+        <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+        <dotlottie-player src="https://lottie.host/710c0489-0b2b-4289-a240-ebea047bb7c6/CuWUWm5U8W.json"
+          background="transparent" speed="1" style="width: 350px; height: 550px;" loop autoplay></dotlottie-player>
+      </div>
+
+      <!-- Sign-Up Form Section -->
+      <div class="signup-form-section" id="signupFormSection"
+        <% if (!showRegister) { %> style="display: none;" <% } %>>
+        <!-- Display only if not showing login form -->
+        <div class="login-text">
+          Sign Up
+          <div class="login-quote">
+            Welcome to CareerPool, explore the best careers!
+          </div>
+        </div>
+
+        <form class="login-form" action="/employee/signup" method="post">
+          <!-- Sign-Up form -->
+          <div class="input-box">
+            <input type="text" name="name" placeholder="Enter Your Fullname" required autocomplete="section-blue full-name">
+            <div class="underline"></div>
+          </div>
+          <% if (errors.name) { %>
+            <p class="error">
+              <%= errors.name %> <!-- Display validation error for name -->
+            </p>
+          <% } %>
+          <div class="input-box">
+            <input type="text" name="email" placeholder="Enter Your Email" required autocomplete="section-blue email-address">
+            <div class="underline"></div>
+          </div>
+          <% if (errors.email) { %>
+            <p class="error">
+              <%= errors.email %> <!-- Display validation error for email -->
+            </p>
+          <% } %>
+          <div class="input-box">
+            <input type="password" name="password" placeholder="Enter Your Password" required autocomplete="section-blue password">
+            <div class="underline"></div>
+          </div>
+
+          <div class="input-box button">
+            <input type="submit" name="submit" value="Continue">
+          </div>
+        </form>
+
+        <span class="partition">
+          Or
+        </span>
+        <div class="sign-in-google">
+          <!-- Google Sign-In option -->
+          <a href="/new/auth/google">
+            <i class='fab fa-google-plus-g'></i>
+            Continue with Google
+          </a>
+        </div>
+        <div class="sign-up-text">
+          Already have an account? <a href="/employee/auth"><span class="signin-btn">Sign In</span></a>
+        </div>
+        <a href="/" class="back-page">
+          <i class="fas fa-long-arrow-alt-left"></i>
+        </a>
+      </div>
+
+      <!-- Forgot Password Form Section -->
+      <div class="login-form-section" id="forgotPasswordSection" style="display:none"
+        <% if (showRegister) { %> style="display: none;" <% } %>>
+        <div class="login-text">
+          Forget Password
+          <div class="login-quote">
+            Welcome to CareerPool, explore the best careers!
+          </div>
+        </div>
+
+        <form class="forgot-pass-form" action="/employee/forgot-password" method="post">
+          <!-- Forgot Password form -->
+          <div class="input-box">
+            <input type="email" name="email" placeholder="Enter Your Email" required autocomplete="section-blue email-address">
+            <div class="underline"></div>
+          </div>
+          <div class="input-box button">
+            <input type="submit" name="submit" value="Continue">
+          </div>
+        </form>
+        <div class="sign-up-text">
+          Don't have an account? <span class="signup-btn">Sign up</span>
+        </div>
+        <a href="/" class="back-page">
+          <i class="fas fa-long-arrow-alt-left"></i>
+        </a>
+      </div>
+
+    </div>
+  </div>
+  <!-- Custom JS for authentication functionalities -->
+  <script src="../assets/js/auth.js"></script>
+  <!-- Custom JS for iziToast notifications -->
+  <script src="../assets/js/izitoast.js"></script>
+  <script>
+    // Use EJS variables to set the initial state for flash messages and registration view
+    const success_flash = "<%= typeof flash.success !== 'undefined' ? flash.success : '' %>";
+    const error_flash = "<%= typeof flash.error !== 'undefined' ? flash.error : '' %>";
+    const info_flash = "<%= typeof flash.info !== 'undefined' ? flash.info : '' %>";
+    const warning_flash = "<%= typeof flash.warning !== 'undefined' ? flash.warning : '' %>";
+    const showRegister = JSON.parse("<%= typeof showRegister !== 'undefined' ? showRegister : 'false' %>");
+    console.log(success_flash, 'adf');
+  </script>
+  <!-- Additional custom JS if needed -->
+  <script src="../assets/js/fm.js"></script>
+</body>
+
+</html>

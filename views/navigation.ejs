@@ -1,0 +1,27 @@
+
+<div class="nav">
+  <div class="nav-inner-container">
+    <div class="logo">
+      <% if (locals.user) { %>
+        <a href="/employee/dashboard">
+        <% } else { %>
+          <a href="/">
+          <% }  %>
+      <img src="../assets/images/logo.png" alt="" srcset=""> </a>
+    </div>
+    <% if(locals.user){ %>
+      <div class="nav-login">
+        <div class="avatar" id="avatar"> <%= locals.user.name.charAt(0).toUpperCase() %></div>
+        <a href="/employee/dashboard"> <%= locals.user.name.charAt(0).toUpperCase() + locals.user.name.slice(1) %></a>
+      </div>
+  
+      <% }else{ %>
+        <div class="nav-login">
+          <a href="/employee/auth"><button class="nav-login-btn">Login</button></a>
+        </div>
+    
+      <% } %>
+
+    
+  </div>
+</div>

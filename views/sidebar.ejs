@@ -1,0 +1,61 @@
+<div class="emp-sidebar">
+  <div class="emp-info">
+    <img src="../assets/images/user.png" alt="" height="80" width="80">
+    <span class="emp-name">
+     <%= locals.user.name.charAt(0).toUpperCase() + locals.user.name.slice(1) %>
+    </span>
+    <span class="emp-designation">SDE-I</span>
+    <span class="emp-company">@Coding Ninjas</span>
+  </div>
+
+  <!--start navigation bar-->
+  <div class="emp-navigation">
+    <ul class="nav-main">
+      <li class="nav-items">
+        <a href="/employee/dashboard">
+          <i class="fas fa-home"></i>
+          Dashboard
+        </a>
+      </li>
+      <li class="nav-items">
+        <a href="/employee/student">
+          <i class="fas fa-user-graduate"></i>Students
+
+        </a>
+      </li>
+      <li class="nav-items">
+        <a href="/employee/company">
+          <i class="fas fa-building"></i>
+          Companies
+        </a>
+      </li>
+      <li class="nav-items">
+        <a href="/employee/interview">
+          <i class="fas fa-yin-yang"></i>
+          Interview
+        </a>
+      </li>
+      <li class="nav-items">
+        <a href="/employee/recent-placed">
+          <i class="fas fa-wrench"></i>
+          Recent Placed
+        </a>
+      </li>
+      <li class="nav-items">
+        <a href="/employee/csv" style="color: rgb(34, 197, 64);">
+          <i class="fas fa-file-csv"></i>
+          Download CSV
+        </a>
+      </li>
+      <li class="nav-items">
+        <a href="/employee/logout" class="log-out">
+          <i class="fas fa-sign-out-alt"></i>
+          Log out
+        </a>
+      </li>
+    </ul>
+  </div>
+  <!-- end navigation bar-->
+
+
+</div> <!-- end sidebar bar-->

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+  <link rel="stylesheet" href="../assets/css/_navbar.css" />
+  <link rel="stylesheet" href="../assets/css/_sidebar.css" />
+  <link rel="stylesheet" href="../assets/css/dashboard.css" />
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/izitoast.css" />
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <%- include('navigation') %>
+
+      <div class="m-container">
+
+        <%- include('sidebar') %>
+
+
+         <div class="container-section">
+            <div class="heading-section">
+              <div class="title">
+                Recently Placed
+              </div>
+            </div>
+            <div class="list-container">
+              <div class="list-section">
+                <table class="table-container">
+                  <thead class="thead">
+                    <tr>
+                      <th>Sl.No</th>
+                      <th>Student Name</th>
+                      <th>Company Name</th>
+                      <th>Interview Date</th>
+                      <th>Status</th>
+                      <th>Created At</th>
+                      <th>Action</th>
+
+                    </tr>
+                  </thead>
+                  <tbody class="tbody">
+                    <%  if(placedInterviews.length>0){
+                      placedInterviews.forEach((interview, index) => {%>
+                    <tr>
+                      <td><%= index + 1 %></td>
+                      <td class="name"><%= interview.student_id.name %></td>
+                      <td class="name"><%= interview.company_id.name %> </td>
+                      <td><%= new Date(interview.interview_date).toDateString().slice(4) %></td>
+                   
+                      <td><%= interview.status %></td>
+                      <td><%= new Date(interview.createdAt).toDateString().slice(4) %> </td>
+                      <td>
+                          <i class="far fa-eye view-interview" id="view-interview" data-toggle="modal" data-target="#viewRPModal" data-interviewId ='<%= JSON.stringify(interview._id) %>'></i>
+                      </td>
+                    </tr>
+                    <% });
+                   }else{ %>
+                    <tr>
+                      <td colspan="6">No Record Found</td>
+                    </tr>
+                    <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+         </div>
+      </div>
+  </div>
+
+  <div class="modal fade" id="viewRPModal" tabindex="-1" role="dialog" aria-labelledby="viewRPModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content bg-light border-primary">
+        <div class="modal-header bg-primary-color">
+          <h5 class="modal-title" id="viewRPModal">Student Detail</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Display Student Details in Sections -->
+  
+          <!-- Row for Personal and Academic Details -->
+          <div class="row">
+            <!-- Personal Details Section -->
+            <div class="col-md-6">
+              <h5 class="bg-info-c  p-2 rounded">Personal Details</h5>
+              <ul class="list-group mb-4">
+                <li class="list-group-item "><strong>Name:</strong> <span id="student-name"></span></li>
+                <li class="list-group-item "><strong>Email:</strong> <span id="student-email"></span></li>
+                <li class="list-group-item "><strong>Gender:</strong> <span id="student-gender"></span></li>
+                <li class="list-group-item "><strong>Date of Birth:</strong> <span id="student-dob"></span></li>
+                <li class="list-group-item "><strong>Age:</strong> <span id="student-age"></span></li>
+              </ul>
+            </div>
+  
+            <!-- Academic Details Section -->
+            <div class="col-md-6">
+              <h5 class="bg-info-c p-2 rounded">Academic Details</h5>
+              <ul class="list-group mb-4">
+                <li class="list-group-item "><strong>College:</strong> <span id="student-college"></span></li>
+                <li class="list-group-item "><strong>Batch:</strong> <span id="student-batch"></span></li>
+                <li class="list-group-item "><strong>DSA Score:</strong> <span id="student-dsa-score"></span></li>
+                <li class="list-group-item "><strong>WebD Score:</strong> <span id="student-web-score"></span></li>
+                <li class="list-group-item "><strong>React Score:</strong> <span id="student-react-score"></span></li>
+              </ul>
+            </div>
+          </div>
+    
+          <!-- Company Details Section -->
+          <h5 class="bg-info-c p-2 rounded">Interview Details</h5>
+          <table class="table table-bordered table-striped">
+            <thead class="bg-info-c">
+              <tr>
+                <th>Company Name</th>
+                <th>Interview Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="companyDetails">
+              <!-- Company details will be populated dynamically -->
+               <tr>
+                <td id="cm-name"></td>
+                <td id="cm-date"></td>
+                <td id="cm-status"></td>
+               </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="../assets/js/interview.js"></script> 
+  <script src="../assets/js/izitoast.js"></script>
+  <script>
+    // Use EJS variable to set the initial state
+    const success_flash = "<%= typeof flash.success !== 'undefined' ? flash.success : '' %>";
+    const error_flash = "<%= typeof flash.error !== 'undefined' ? flash.error : '' %>";
+    const info_flash = "<%= typeof flash.info !== 'undefined' ? flash.info : '' %>";
+    const warning_flash = "<%= typeof flash.warning !== 'undefined' ? flash.warning : '' %>";
+  </script>
+  <script src="../assets/js/fm.js"></script> 
+</body>
+
+</html>

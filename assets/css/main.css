@@ -1,0 +1,61 @@
+/* Basic styling for the body element */
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: #E7EFFC;
+  font-family: 'Segoe UI Regular';
+}
+
+/* Styling for the main container */
+.main {
+  width: 100%;
+  height: 90%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* Styling for the heading section */
+.heading {
+  width: 1200px;
+  margin-bottom: 10px;
+  position: absolute;
+  top: 5%;
+  z-index: 1;
+}
+
+/* Styling for heading text */
+.heading h4 {
+  font-size: 1.5rem;
+  color: black;
+  margin-bottom: 20px;
+}
+
+/* Styling for Lottie animation container */
+.lottie {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Styling for the slogan section */
+.slogen {
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  right: 0;
+}
+
+/* Styling for slogan text */
+.slogen p {
+  font-size: 1rem;
+  font-weight: 600;
+  color: black;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+
+/* LOGIN */

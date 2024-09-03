@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Character encoding for the document -->
+  <meta charset="UTF-8">
+  
+  <!-- Viewport settings for responsive design -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Page title displayed in the browser tab -->
+  <title>CarrerPool</title>
+  
+  <!-- Shortcut icon for the webpage (favicon) -->
+  <link
+    rel="shortcut icon"
+    href="https://cdn-icons-png.flaticon.com/512/1063/1063196.png"
+    type="image/x-icon"
+  />
+  
+  <!-- Custom stylesheets for navigation and main layout -->
+  <link rel="stylesheet" href="../assets/css/_navbar.css" />
+  <link rel="stylesheet" href="../assets/css/main.css" />
+</head>
+
+<body>
+
+  <!-- Include navigation bar from external EJS template -->
+  <%- include('navigation') -%>
+
+  <!-- Main content area -->
+  <div class="main">
+    <!-- Heading section with a description -->
+    <div class="heading">
+      <h4>
+        With our Placement Cell Website, you can discover your path to a successful career. Get access to tailored job opportunities
+      </h4>
+    </div>
+
+    <!-- Lottie animation section -->
+    <div class="lottie">
+      <!-- Import Lottie Player component for animations -->
+      <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+      
+      <!-- Lottie animation player with specified source and styles -->
+      <dotlottie-player src="https://lottie.host/dfc218d4-fab4-4d2f-9c8e-3f9a7ada53e8/a4sRycIKPi.json" background="transparent" speed="1" style="width: 600px; height: 550px; padding-top:3.5rem" loop autoplay></dotlottie-player>
+    </div>
+
+    <!-- Slogan section -->
+    <div class="slogen">
+      <p>
+        "Come join us today and take the first step towards a better future!"
+      </p>
+    </div>
+  </div>
+
+</body>
+</html>

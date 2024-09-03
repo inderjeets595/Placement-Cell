@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Character set and viewport settings -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+  
+  <!-- Custom stylesheets -->
+  <link rel="stylesheet" href="../assets/css/_navbar.css" />
+  <link rel="stylesheet" href="../assets/css/_sidebar.css" />
+  <link rel="stylesheet" href="../assets/css/dashboard.css" />
+  
+  <!-- Bootstrap CSS for responsive layout and components -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- iZitoast CSS for toast notifications -->
+  <link rel="stylesheet" href="../assets/css/izitoast.css" />
+</head>
+
+<body>
+  <!-- Main dashboard container -->
+  <div class="dashboard-container">
+    
+    <!-- Navigation bar inclusion -->
+    <%- include('navigation') %>
+
+    <div class="m-container">
+
+      <!-- Sidebar inclusion -->
+      <%- include('sidebar') %>
+
+      <!-- Main content section -->
+      <div class="container-section">
+        <div class="heading-section">
+          <div class="title">
+            Interview
+          </div>
+          <!-- Button to open the add interview modal -->
+          <div class="add" data-toggle="modal" data-target="#interviewModal">
+            Add Interview
+          </div>
+        </div>
+        <div class="list-container">
+          <div class="list-section">
+            <!-- Table to display interviews -->
+            <table class="table-container">
+              <thead class="thead">
+                <tr>
+                  <th>Sl.No</th>
+                  <th>Student Name</th>
+                  <th>Company Name</th>
+                  <th>Interview Date</th>
+                  <th>Status</th>
+                  <th>Created At</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody class="tbody">
+                <% if (interviews.length > 0) { 
+                    interviews.forEach((interview, index) => { %>
+                <tr>
+                  <td><%= index + 1 %></td>
+                  <td class="name"><%= interview?.student_id?.name %></td>
+                  <td class="name"><%= interview?.company_id?.name %></td>
+                  <td><%= new Date(interview.interview_date).toDateString().slice(4) %></td>
+                  <td><%= interview.status %></td>
+                  <td><%= new Date(interview.createdAt).toDateString().slice(4) %></td>
+                  <td>
+                    <!-- Icons for editing and deleting interviews -->
+                    <i class="fas fa-pencil-alt edit-interview" id="edit-interview" data-toggle="modal" data-target="#editInterviewModal" data-interviewId='<%= JSON.stringify(interview._id) %>'></i>
+                    <i class="fas fa-times delete-interview" data-interviewId='<%= JSON.stringify(interview._id) %>'></i>
+                  </td>
+                </tr>
+                <% }); 
+                } else { %>
+                <tr>
+                  <td colspan="7">No Record Found</td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for adding interview  -->
+  <div class="modal fade" id="interviewModal" tabindex="-1" role="dialog" aria-labelledby="interviewModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-primary-color">
+          <h5 class="modal-title" id="interviewModalLabel">Create Interview Form</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="interviewForm" action="/employee/interview/add" method="POST" class="interview-form">
+          <div class="modal-body ">
+            <div class="container-fluid">
+              <div class="row d-flex justify-content-center align-items-center">
+                <!-- Personal Details -->
+                <div class="col-md-8 ">
+                  <h5>Interview Schedule</h5>
+                  <div class="form-group">
+                    <label for="student">Student Name:</label>
+                    <select class="form-control" id="student_id" name="student_id" required>
+                      <option value="">Select</option>
+                      <% if(students.length>0){ 
+                         for(let student of students){ %>
+                          <option value="<%= student._id %>"><%= student.name %></option>
+                      <%    }
+                          }
+                       %>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="company">Company Name:</label>
+                    <select class="form-control" id="company_id" name="company_id" required>
+                      <option value="">Select</option>
+                      <% if(companies.length>0){ 
+                         for(let company of companies){ %>
+                          <option value="<%= company._id %>"><%= company.name %></option>
+                      <%    }
+                          }
+                       %>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="interviewDate">Interview Date:</label>
+                    <input type="date" class="form-control" id="interview_date" name="interview_date" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="status">Status:</label>
+                    <select class="form-control" id="status" name="status" required>
+                      <option value="">Select</option>
+                      <option value="Pass">Pass</option>
+                      <option value="Fail">Fail</option>
+                      <option value="On Hold">On Hold</option>
+                      <option value="To be decided">To be decided</option>
+                      <option value="Didn't Attempt">Didn't Attempt</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save Interview</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Editing interview Details -->
+<div class="modal fade" id="editInterviewModal" tabindex="-1" role="dialog" aria-labelledby="editInterviewModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary-color">
+        <h5 class="modal-title" id="editInterviewModal">Interview Details</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="editInterviewForm" method="POST" class="editInterview-form">
+        <div class="modal-body ">
+          <div class="container-fluid">
+            <div class="row d-flex justify-content-center align-items-center">
+              <!-- Personal Details -->
+              <div class="col-md-8 ">
+                <h5>Interview Schedule</h5>
+                <div class="form-group">
+                  <label for="student">Student Name:</label>
+                  <select class="form-control" id="student_id" name="student_id" required>
+                    <option value="">Select</option>
+                    <% if(students.length>0){ 
+                       for(let student of students){ %>
+                        <option value="<%= student._id %>"><%= student.name %></option>
+                    <%    }
+                        }
+                     %>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="company">Company Name:</label>
+                  <select class="form-control" id="company_id" name="company_id" required>
+                    <option value="">Select</option>
+                    <% if(companies.length>0){ 
+                       for(let company of companies){ %>
+                        <option value="<%= company._id %>"><%= company.name %></option>
+                    <%    }
+                        }
+                     %>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="interviewDate">Interview Date:</label>
+                  <input type="date" class="form-control" id="interview_date" name="interview_date" required>
+                </div>
+                <div class="form-group">
+                  <label for="status">Status:</label>
+                  <select class="form-control" id="status" name="status" required>
+                    <option value="">Select</option>
+                    <option value="Pass">Pass</option>
+                    <option value="Fail">Fail</option>
+                    <option value="On Hold">On Hold</option>
+                    <option value="To be decided">To be decided</option>
+                    <option value="Didn't Attempt">Didn't Attempt</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="../assets/js/interview.js"></script> 
+  <script src="../assets/js/izitoast.js"></script>
+  <script>
+    // Use EJS variable to set the initial state
+    const success_flash = "<%= typeof flash.success !== 'undefined' ? flash.success : '' %>";
+    const error_flash = "<%= typeof flash.error !== 'undefined' ? flash.error : '' %>";
+    const info_flash = "<%= typeof flash.info !== 'undefined' ? flash.info : '' %>";
+    const warning_flash = "<%= typeof flash.warning !== 'undefined' ? flash.warning : '' %>";
+  </script>
+  <script src="../assets/js/fm.js"></script> 
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+
+.emp-sidebar{
+  width: 220px;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+  background-color:#EAF1FC;
+  height: 100%;
+  border-right: 4px solid #e1e5ed;
+
+}
+
+.emp-info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.emp-info > img{
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.emp-name {
+  color: #000000;
+  font-size: 22px;
+}
+.emp-designation {
+  color: #000000;
+  font-size: 15px;
+}
+.emp-company {
+  color: rgb(0, 149, 255);
+  font-size: 13px;
+}
+
+.emp-navigation{
+  margin: -3rem 0 0 0;
+  width: 100%;
+
+  /* padding-left: 2.5rem; */
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+} 
+
+li.nav-items {
+  font-size:17px;
+  font-weight: 600;
+  list-style: none;
+  height: 45px;
+  padding: 10px 0 0 0;
+}
+
+ul li:hover {
+  background-color: #C7D5F7;
+  border-bottom:3px solid #F0F4FC;
+  letter-spacing: 0.15px;
+ 
+}
+
+.nav-items a {
+  text-decoration: none;
+  display: flex;
+  padding: 0 2rem;
+  transition: 0.3s;
+  color: #000000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+li > a >i{
+  margin: 2px 4px 0 0;
+}
+
+li a:hover{
+  text-decoration: none !important;
+}
+
+
