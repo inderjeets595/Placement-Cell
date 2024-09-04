@@ -2,7 +2,7 @@
 <div class="nav">
   <div class="nav-inner-container">
     <div class="logo">
-      <% if (locals.user) { %>
+      <% if (locals?.user) { %>
         <a href="/employee/dashboard">
         <% } else { %>
           <a href="/">
@@ -11,8 +11,8 @@
     </div>
     <% if(locals.user){ %>
       <div class="nav-login">
-        <div class="avatar" id="avatar"> <%= locals.user.name.charAt(0).toUpperCase() %></div>
-        <a href="/employee/dashboard"> <%= locals.user.name.charAt(0).toUpperCase() + locals.user.name.slice(1) %></a>
+        <div class="avatar" id="avatar"> <%= locals?.user?.name?.charAt(0)?.toUpperCase() %></div>
+        <a href="/employee/dashboard"> <%= locals?.user?.name?.charAt(0)?.toUpperCase() + locals?.user?.name?.slice(1) %></a>
       </div>
   
       <% }else{ %>
