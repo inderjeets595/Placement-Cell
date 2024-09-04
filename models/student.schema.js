@@ -56,8 +56,8 @@ const studentSchema = new mongoose.Schema({
   // Status of the student, can be 'placed' or 'not_placed', default is 'not_placed'
   status: {
     type: String,
-    enum: ['placed', 'not_placed'],
-    default: 'not_placed'
+    enum: ['Placed', 'Not Placed'],
+    default: 'Not Placed'
   },
   // Array of ObjectIds referencing the Interview model
   interviews: [{

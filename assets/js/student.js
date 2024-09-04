@@ -1,4 +1,4 @@
-// Select the elements to display student details
+// Select the elements to display student details in view form 
 const studentName = document.querySelector('#student-name');
 const studentEmail = document.querySelector('#student-email');
 const studentGender = document.querySelector('#student-gender');
@@ -9,6 +9,23 @@ const studentBatch = document.querySelector('#student-batch');
 const studentDsaScore = document.querySelector('#student-dsa-score');
 const studentWebDScore = document.querySelector('#student-web-score');
 const studentReactScore = document.querySelector('#student-react-score');
+const studentStatus = document.querySelector('#student-status');
+
+
+const editStudentForm = document.querySelector('#editStudentForm');
+const eStudentName = document.querySelector('#ename');
+const eStudentEmail = document.querySelector('#eemail');
+const eStudentGender = document.querySelector('#egender');
+const eStudentDob = document.querySelector('#edob');
+const eStudentAge = document.querySelector('#eage');
+const eStudentCollege = document.querySelector('#ecollege');
+const eStudentBatch = document.querySelector('#ebatch');
+const eStudentDsaScore = document.querySelector('#edsa_score');
+const eStudentWebDScore = document.querySelector('#ewebd_score');
+const eStudentReactScore = document.querySelector('#ereact_score');
+const eStudentStatus = document.querySelector('#estatus');
+
+
 
 document.addEventListener('DOMContentLoaded', function () {
   // Add an event listener to the table body to handle click events
@@ -35,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
         studentDsaScore.textContent = student.dsa_score;
         studentWebDScore.textContent = student.webd_score;
         studentReactScore.textContent = student.react_score;
+        studentStatus.textContent = student.status;
         
         // Handle the display of company details related to the student's interviews
         const interviewDetails = student?.interviews;  // Get interview details if they exist
@@ -76,6 +94,51 @@ document.addEventListener('DOMContentLoaded', function () {
         } 
       });
     }
+        
+    // Check if the clicked element has the 'view-student' class
+    if (event.target.classList.contains('edit-student')) {
+      // Parse the student ID from the button's data attribute
+      const studentId = JSON.parse(event.target.getAttribute('data-studentid'));
+      
+      try {
+        // Fetch student details via AJAX using the student ID
+        const response = await fetch(`/employee/student/:${studentId}`);
+        const student = await response.json();
+     
+         // Format the studeent dob date for the input field
+         
+         const studentDob = new Date(student.dob).toISOString().split("T")[0];
+
+        // Populate the student details in the edit modal    
+        eStudentName.value = student.name;
+        eStudentEmail.value = student.email;
+        eStudentGender.value = student.gender;
+        eStudentDob.value =studentDob;
+        eStudentAge.value = student.age;
+        eStudentCollege.value = student.college;
+        eStudentBatch.value = student.batch;
+        eStudentDsaScore.value = student.dsa_score;
+        eStudentWebDScore.value = student.webd_score;
+        eStudentReactScore.value = student.react_score;
+        eStudentStatus.value = student.status;
+        
+         // Set the form action URL to submit the edited student details
+         editStudentForm.action = `/employee/student/edit/${studentId}`;
+
+      } catch (error) {
+        // Log any errors that occur during the fetching of student details
+        console.error('Error fetching student details:', error);
+      }
+
+      // Add an event listener for the delete button inside the modal
+      document.addEventListener('click', function (event) {
+        if (event.target.classList.contains('delete-student')) {
+          const studentId = event.target.getAttribute('data-studentid');
+          deleteStudent(studentId);  // Call the delete function with the student ID
+        } 
+      });
+    }
+
 
     // Check if the clicked element has the 'delete-student' class (outside the modal)
     if (event.target.classList.contains('delete-student')) {

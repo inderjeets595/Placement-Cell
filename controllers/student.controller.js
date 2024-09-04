@@ -88,11 +88,39 @@ const detailStudent = async (req, res) => {
   }
 };
 
+const updateStudent = async(req,res) =>{
+
+  try {
+    const studentId = req.params.id; // Extract student ID from the URL parameter
+
+    // Extract student data from request body
+    const { name, email, gender, dob, age, college, batch, dsa_score, webd_score, react_score,status } = req.body;
+
+    // Update the student with new details
+    const updatedStudent = await studentModel.findByIdAndUpdate(
+      studentId,
+        { name, email, gender, dob, age, college, batch, dsa_score, webd_score, react_score, status },
+        { new: true }
+       );
+    if (!updatedStudent) {
+      req.flash("error", "Student not updated");
+      return res.redirect('/employee/student');
+    }
+    req.flash('success', 'Student updated successfully!');
+  } catch (error) {
+    console.log(error)
+    req.flash("error", "An error occurred while updating Interview detail");
+  }
+  return res.redirect('/employee/student');
+}
+
+
 // Controller function to delete a student
 const deleteStudent = async (req, res) => {
   try {
     // Extract student ID from request parameters
     const studentId = req.params.id;
+
     // Find and delete the student by ID
     const deletedStudent = await studentModel.findByIdAndDelete(studentId);
 
@@ -133,5 +161,6 @@ module.exports = {
   student,
   addStudent,
   detailStudent,
+  updateStudent,
   deleteStudent
 };

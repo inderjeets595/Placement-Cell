@@ -39,6 +39,7 @@ router.post('/update-password', employeeController.updatePassword);
 router.get('/student', studentController.student);  // Render student list page
 router.post('/student/add', studentController.addStudent);  // Handle adding a new student
 router.get('/student/:id', studentController.detailStudent);  // Render student details page
+router.post('/student/edit/:id', studentController.updateStudent);  // Handle updating an student
 router.get('/student/delete/:id', studentController.deleteStudent);  // Handle student deletion
 
 // Routes for company management
