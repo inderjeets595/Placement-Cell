@@ -25,7 +25,7 @@ exports.forgetPasswordMail = async (user, accessToken) => {
           <p>You are receiving this email because you have requested the reset of the password for your account.</p>
           <p style="padding-bottom: 5px;">Please click on the following link:</p>
           <p>
-            <a href="http://localhost:8080/employee/reset-password/${accessToken}" style="text-decoration: none; padding: 10px; color: white; border: none; background-color: #327D82; border-radius: 3px;">
+            <a href="https://placement-cell-3k3j.onrender.com/employee/reset-password/${accessToken}" style="text-decoration: none; padding: 10px; color: white; border: none; background-color: #327D82; border-radius: 3px;">
               Click here to Reset Password
             </a>
           </p>
