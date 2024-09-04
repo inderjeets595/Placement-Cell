@@ -69,7 +69,7 @@
                   <td class="name"><%= interview?.student_id?.name %></td>
                   <td class="name"><%= interview?.company_id?.name %></td>
                   <td><%= new Date(interview.interview_date).toDateString().slice(4) %></td>
-                  <td><%= interview.status %></td>
+                  <td><span class="pending"><%= interview.status %></span></td>
                   <td><%= new Date(interview.createdAt).toDateString().slice(4) %></td>
                   <td>
                     <!-- Icons for editing and deleting interviews -->
